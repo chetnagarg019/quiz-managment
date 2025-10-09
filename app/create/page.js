@@ -17,7 +17,13 @@ function emptyQuestion(idSuffix = "") {
 export default function CreatePage() {
   const router = useRouter();
   const params = useSearchParams();
-  const editId = params?.get("id") || null;
+  // const editId = params?.get("id") || null;
+  const [editId, setEditId] = useState(null);
+
+  useEffect(() => {
+    const id = params?.get("id") || null;
+    setEditId(id);  // Set editId when the component is mounted
+  }, [params]);
 
   const [title, setTitle] = useState("");
   const [questions, setQuestions] = useState([emptyQuestion("init")]);
