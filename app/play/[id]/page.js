@@ -1,20 +1,20 @@
 // app/play/[id]/page.js
 "use client";
 import React, { useEffect, useState } from "react";
-import { useParams, useRouter } from "next/navigation";
+import { useParams, useRouter } from "next/navigation"; //useParams() → URL se quiz ka id nikalne ke liye (jaise /play/123 → id = 123)
 import { defaultQuizzes } from "../../data/route";
 import { loadQuizzes, saveQuizzes } from "../../utils/storage";
 
 export default function PlayPage() {
-  const params = useParams();
-  const router = useRouter();
+  const params = useParams(); //quizId URL se milta hai. Example: /play/8 → quizId = "8"
+  const router = useRouter(); 
   const quizId = params?.id;
-  const [quiz, setQuiz] = useState(null);
-  const [index, setIndex] = useState(0);
-  const [selected, setSelected] = useState(null);
-  const [score, setScore] = useState(0);
-  const [finished, setFinished] = useState(false);
-  const [answers, setAnswers] = useState([]); // store {qId, selectedIndex, correctIndex}
+  const [quiz, setQuiz] = useState(null); //Current quiz object (title, question, etc.)
+  const [index, setIndex] = useState(0); //Abhi kaunsa question chal raha hai (0 = first)
+  const [selected, setSelected] = useState(null); //User ne konsa option choose kiya 
+  const [score, setScore] = useState(0); //User ke sahi answers ka count
+  const [finished, setFinished] = useState(false); //Quiz complete hua ya nahi
+  const [answers, setAnswers] = useState([]); // Har question ke answers store karta hai review ke liye
 
   useEffect(() => {
     const saved = loadQuizzes() || defaultQuizzes;
@@ -22,7 +22,7 @@ export default function PlayPage() {
     if (q) setQuiz(q);
   }, [quizId]);
 
-  if (!quiz) {
+  if (!quiz) { //👉 Agar quiz null hai (matlab nahi mila), to user ko message dikhata hai aur “Back” button deta hai home page ke liye.
     return (
       <div className="min-h-screen flex items-center justify-center">
         <p>Loading quiz... or quiz not found.</p>
@@ -62,7 +62,7 @@ export default function PlayPage() {
         localStorage.setItem(attemptsKey, JSON.stringify(arr));
       } catch (e) {
         console.error(e);
-      }
+      } 
     }
   }
 
@@ -77,8 +77,8 @@ export default function PlayPage() {
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-50 to-indigo-50">
       <div className="max-w-2xl mx-auto bg-white p-6 rounded shadow">
-        <h1 className="text-2xl font-bold mb-4">{quiz.title}</h1>
-
+        <h1 className="text-2xl font-bold mb-4">{quiz.title}</h1> 
+        {/* finished ek state bnayi hai jisse ye pta chla rha hai ki quiz complete hua ya nhi  */}
         {!finished ? (
           <>
             <div className="mb-4">
@@ -141,7 +141,9 @@ export default function PlayPage() {
             </div>
           </>
         )}
+
+        {/* finsih nhi ? opt vala code : score dikhana   */}
       </div>
-    </div>
+    </div> 
   );
 }

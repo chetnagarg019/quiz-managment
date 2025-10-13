@@ -9,27 +9,27 @@ export default function Page() {
   const router = useRouter();
   const [quizzes, setQuizzes] = useState([]);
 
-  // useEffect(() => {
-  //   // try load saved quizzes; if none, initialize with defaults
-  //   const saved = loadQuizzes();
-  //   if (!saved || saved.length === 0) {
-  //     saveQuizzes(defaultQuizzes);
-  //     setQuizzes(defaultQuizzes);
-  //   } else {
-  //     setQuizzes(saved);
-  //   }
-  // }, []);
-
   useEffect(() => {
-  const saved = loadQuizzes() || [];
-  const merged = [
-    ...defaultQuizzes.filter(dq => !saved.some(sq => sq.id === dq.id)), 
-    ...saved
-  ];
-  saveQuizzes(merged);
-  setQuizzes(merged);
-}, []);
+    // try load saved quizzes; if none, initialize with defaults
+    const saved = loadQuizzes();
+    if (!saved || saved.length === 0) {
+      saveQuizzes(defaultQuizzes);
+      setQuizzes(defaultQuizzes);
+    } else {
+      setQuizzes(saved);
+    }
+  }, []);
 
+
+  // useEffect(() => {
+  //   const saved = loadQuizzes() || [];
+  //   const merged = [
+  //     ...defaultQuizzes.filter((dq) => !saved.some((sq) => sq.id === dq.id)),
+  //     ...saved,
+  //   ];
+  //   saveQuizzes(merged);
+  //   setQuizzes(merged);
+  // }, []);
 
   function handleDelete(id) {
     if (!confirm("Are you sure you want to delete this quiz?")) return;
@@ -40,7 +40,9 @@ export default function Page() {
 
   return (
     <div className="min-h-screen p-6 bg-gradient-to-br from-blue-100 to-indigo-100">
-      <h1 className="text-4xl font-bold text-center mb-8">Quiz Builder — Home</h1>
+      <h1 className="text-4xl font-bold text-center mb-8">
+        Quiz Builder — Home
+      </h1>
 
       <div className="flex justify-center gap-4 mb-6">
         <button
@@ -55,7 +57,9 @@ export default function Page() {
         {quizzes.map((quiz) => (
           <div key={quiz.id} className="bg-white p-4 rounded shadow">
             <h2 className="text-xl font-semibold mb-2">{quiz.title}</h2>
-            <p className="text-sm text-gray-600 mb-3">{quiz.questions.length} questions</p>
+            <p className="text-sm text-gray-600 mb-3">
+              {quiz.questions.length} questions
+            </p>
 
             <div className="flex gap-2">
               <button
@@ -66,7 +70,9 @@ export default function Page() {
               </button>
 
               <button
-                onClick={() => router.push(`/create?id=${encodeURIComponent(quiz.id)}`)}
+                onClick={() =>
+                  router.push(`/create?id=${encodeURIComponent(quiz.id)}`)
+                } //Ye JavaScript ka built-in function hai.Agar quiz.id hai "quiz 1/special",to URL me space aur slash problem karte hain. Matlab ye ensure karta hai ke URL valid rahe aur koi error na aaye.
                 className="px-3 py-1 bg-yellow-500 text-white rounded cursor-pointer"
               >
                 Edit
@@ -79,13 +85,18 @@ export default function Page() {
                 Delete
               </button>
             </div>
+            
           </div>
         ))}
       </div>
 
       {quizzes.length === 0 && (
-        <p className="text-center text-gray-700 mt-8">No quizzes — create one!</p>
+        <p className="text-center text-gray-700 mt-8">
+          No quizzes — create one!
+        </p>
       )}
     </div>
   );
 }
+
+
