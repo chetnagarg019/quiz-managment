@@ -9,27 +9,27 @@ export default function Page() {
   const router = useRouter();
   const [quizzes, setQuizzes] = useState([]);
 
-  useEffect(() => {
-    // try load saved quizzes; if none, initialize with defaults
-    const saved = loadQuizzes();
-    if (!saved || saved.length === 0) {
-      saveQuizzes(defaultQuizzes);
-      setQuizzes(defaultQuizzes);
-    } else {
-      setQuizzes(saved);
-    }
-  }, []);
-
-
   // useEffect(() => {
-  //   const saved = loadQuizzes() || [];
-  //   const merged = [
-  //     ...defaultQuizzes.filter((dq) => !saved.some((sq) => sq.id === dq.id)),
-  //     ...saved,
-  //   ];
-  //   saveQuizzes(merged);
-  //   setQuizzes(merged);
+  //   // try load saved quizzes; if none, initialize with defaults
+  //   const saved = loadQuizzes();
+  //   if (!saved || saved.length === 0) {
+  //     saveQuizzes(defaultQuizzes);
+  //     setQuizzes(defaultQuizzes);
+  //   } else {
+  //     setQuizzes(saved);
+  //   }
   // }, []);
+
+
+  useEffect(() => {
+    const saved = loadQuizzes() || [];
+    const merged = [
+      ...defaultQuizzes.filter((dq) => !saved.some((sq) => sq.id === dq.id)),
+      ...saved,
+    ];
+    saveQuizzes(merged);
+    setQuizzes(merged);
+  }, []);
 
   function handleDelete(id) {
     if (!confirm("Are you sure you want to delete this quiz?")) return;
