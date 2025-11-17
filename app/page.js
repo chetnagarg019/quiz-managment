@@ -9,6 +9,7 @@ export default function Page() {
   const router = useRouter();
   const [quizzes, setQuizzes] = useState([]);
 
+// agr permanently delet krna hai to ye code 
   // useEffect(() => {
   //   // try load saved quizzes; if none, initialize with defaults
   //   const saved = loadQuizzes();
@@ -20,7 +21,7 @@ export default function Page() {
   //   }
   // }, []);
 
-
+// vrna ye 
   useEffect(() => {
     const saved = loadQuizzes() || [];
     const merged = [
@@ -55,7 +56,7 @@ export default function Page() {
 
       <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
         {quizzes.map((quiz) => (
-          <div key={quiz.id} className="bg-white p-4 rounded shadow">
+          <div key={quiz.id} className="bg-white rounded-xl p-4 shadow-md">
             <h2 className="text-xl font-semibold mb-2">{quiz.title}</h2>
             <p className="text-sm text-gray-600 mb-3">
               {quiz.questions.length} questions

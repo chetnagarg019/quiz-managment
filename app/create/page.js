@@ -40,9 +40,7 @@ export default function CreatePage() {
         setTitle(q.title); 
         setQuestions(q.questions.map((qq) => ({ ...qq })));
       }
-      // if (q) ke andar:
-       //setTitle(q.title) → quiz ka title input me set kar deta hai.
-        //setQuestions(q.questions.map(...)) → us quiz ke saare questions page me show kar deta hai.
+      
     }
   }, [editId]); //Ye effect tab chalega jab editId change hota hai, ya page load hone ke baad editId milta hai.
 
@@ -199,20 +197,3 @@ export default function CreatePage() {
   );
 }
 
-
-//🧠 Simple Explanation in Hinglish
-
-// Ye tab run hota hai jab hum edit pe click karte hain (matlab editId me koi value aa jaati hai).
-// if (editId) check karta hai ki kya edit karne ke liye koi quiz select hui hai ya nahi.
-// loadQuizzes() se localStorage me se saved quizzes aati hain.
-// Agar app pehli baar chal rahi hai to defaultQuizzes se sample data milta hai.
-// saved me sabhi quizzes ka data aa jaata hai (maan lo total 8 quizzes hain).
-// find() function un sab quizzes me se wo quiz dhoondhta hai jiska id editId ke barabar hai.
-// Example: agar editId = 8, to ye check karega
-// x.id === 8 har quiz ke liye, jab tak match na mil jaaye.
-// Jab match mil jaata hai, wo quiz q variable me store ho jaati hai.
-// if (q) ke andar:
-// setTitle(q.title) → quiz ka title input me set kar deta hai.
-// setQuestions(q.questions.map(...)) → us quiz ke saare questions page me show kar deta hai.
-// [editId] dependency ka matlab hai:
-// Ye effect tab chalega jab editId change hota hai, ya page load hone ke baad editId milta hai.
